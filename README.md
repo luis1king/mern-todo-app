@@ -1,3 +1,8 @@
+#El proyecto esta desarrolado con bootstrap, React y React Router.
+Se ha incorporado la funcionalidad de guardar tareas en el Local Storage.
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
