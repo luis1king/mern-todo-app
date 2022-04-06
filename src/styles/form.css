@@ -1,0 +1,50 @@
+.contenedor{
+padding:100px
+}
+
+.formHeader{
+    background-color:rgb(48, 46, 80);
+    
+    display: flex;
+    align-items: center;
+    width: 65vw;
+    height:45px;
+}
+
+.formContainer{
+    background-color: rgb(48, 46, 80);
+    margin-top: 4px;
+    padding: 20px;
+    color: white;
+}
+
+h4{
+    margin-left: 10px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.boton{
+    margin-top:10px;
+    width:50%;
+    background-color:rgb(25, 180, 108);
+    color: white;
+}
+
+.volver{
+margin-top:10px;
+}
+
+input{
+    margin-top: 5px;
+}
+
+textarea {
+    height: 110px;
+    resize: none;
+  }
+
+
+
+
+

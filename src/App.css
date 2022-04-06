@@ -1,0 +1,62 @@
+.container-fluid {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background-color: #b1b1b1;
+  height: 100%;
+  min-height:100vh ;
+  width: 100vw;
+}
+
+.App-header {
+  justify-content: center;
+  background-color: #c387df;
+  color: white;
+  height:80px;
+  display: flex;
+  align-items: center;
+}
+
+main {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+ footer {
+  display: flex;
+  align-items: center;
+  background-color: #4b4b4b;
+  height: 40px;
+  justify-content: center;
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+  color: rgb(199, 199, 199);
+  left:0;
+} 
+
+div {
+  overflow-x: hidden;
+}
+
+
+.bg{
+background-color:rgb(48, 46, 80);
+max-width: 350px;
+
+}
+
+.todo{
+  display:flex;
+  justify-content:center;
+}
+
+
+
+
+
+
+
+
