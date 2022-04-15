@@ -5,16 +5,16 @@ import 'moment/locale/es'
 
 
 export const DoneCard = (props) => {
-  const {titulo, descripcion,tags,date,deleteTask }= props
+
+  const {title, description,tags,date,deleteTask,_id }= props
   const taskDate = moment(date)
-  const handleDeleteTask =(index)=> {
-    deleteTask(index)
+  const handleDeleteTask =()=> {
+    deleteTask(_id)
   }
-  console.log(deleteTask)
 
   return (
     <div className="card border-success mb-3">
-      <div className="card-header bg-transparent border-dark">{titulo}</div>
+      <div className="card-header bg-transparent border-dark">{title}</div>
             <div className="card-body">
             {(() => {
         switch (tags) {
@@ -29,10 +29,10 @@ export const DoneCard = (props) => {
         }
            })()}
            
-            <p className="card-text">{descripcion}</p>
+            <p className="card-text">{description}</p>
             <span className="badge rounded-pill bg-secondary">{taskDate.format('LLL')}</span>
             </div>
-        <div className="card-footer todoCard l bg-green border-success" onClick={handleDeleteTask}><i className="bi bi-trash"/> TO-DO</div>
+        <div className="card-footer todoCard l bg-green border-success" onClick={handleDeleteTask}><i className="bi bi-trash"/>DETELE</div>
     </div>
   )
 }

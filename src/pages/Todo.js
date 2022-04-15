@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import { Card } from '../components/Card'
 import { DoneCard } from '../components/DoneCard'
 
-export const Todo = ({state, doneTask,deleteTask}) => {
+export const Todo = ({state,deleteTask}) => {
 
   const navigate = useNavigate()
-
+ 
   return (
     
     <>
@@ -16,7 +16,7 @@ export const Todo = ({state, doneTask,deleteTask}) => {
       <button className="btn btn-success" onClick={()=>navigate('/form')}>
             Create a task
           </button>
-        <div className='row todo'>
+        <div className='row todo' >
           <div className='col bg m-5'>
           <span><h4>TO-DO</h4></span>
             <ul className="list-group">
@@ -25,7 +25,7 @@ export const Todo = ({state, doneTask,deleteTask}) => {
               state
               .map((task, id) =>(
                 !task.done ?
-                <Card key={id} {...task} doneTask={doneTask} /> :''
+                <Card key={id} {...task} /> :''
               ))
             }
             </ul>
@@ -35,9 +35,10 @@ export const Todo = ({state, doneTask,deleteTask}) => {
           <div className='col bg m-5'>
           <span><h4>DONE</h4></span>
           <ul className="list-group">
+          
+
           {
-            state
-            .map( (task,id) => (
+            state.map( (task,id) => (
               task.done ?
                 <DoneCard key={id} {...task} deleteTask={deleteTask}/> : ''
               ))

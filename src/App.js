@@ -1,54 +1,72 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
+import { fetchApi } from './helpers/fetch';
 import { Form } from './pages/Form';
 import { Todo } from './pages/Todo';
-
+import {UpdateTodo} from './pages/UpdateTodo'
+import { ViewTodo } from './pages/ViewTodo';
 
 
 function App() {
 
-  //si hay todos en localStorage, lo retornamos y si no un []
-  const initialState = () => {
-    return JSON.parse(localStorage.getItem('state')) || [{
-      id:  (+new Date()).toString(),
-      titulo:'Nueva tarea',
-      tags:'urgente',
-      descripcion:'Añade una descripcion',
-      done:false,
-      date: new Date().getTime()
-    }]
-  }
-  
-  const [state, setState] = useState(initialState)
-  
-  console.log(state)
-  
-  //Guardamos los todos en local Storage
+  const [state, setState] = useState([])
+
+  //*Traemos los todos de la BBDD
   useEffect(() => {
-    localStorage.setItem('state', JSON.stringify(state))
-  }, [state])
+   getTodos();
+  }, [])
 
-  const addTask = (task) =>{
-      setState([...state, {
-        id:  (+new Date()).toString(),
-        titulo:task.titulo,
-        tags:task.tags,
-        descripcion:task.descripcion,
-        done:false,
-        date: new Date().getTime()
-      }])
+  const getTodos = async () => {
+    try {
+      const resp = await fetchApi('todos');
+      //*Recibimos la resouesta de la BBDD
+      const body = await resp.json();
+      //*Desestructuramos el body, extraemos los todos
+      const {todos} = body;
+      //console.log(body.todos)
+      //*Estamos recibiendo todos como un array de objetos
+      setState(todos)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
-   const doneTask = (id) =>{
-     const updateTask = state.map((task) =>
-    task.id === id ? {...task, done: true,date: new Date().getTime()} : task);
-      setState(updateTask);
+  //*añadir nuevo Todo
+  const addTask = async (task) =>{
+    try {
+      const newTask = {
+          title:task.titulo,
+          tags:task.tags,
+          description:task.descripcion,
+          done:false,
+          date: new Date().getTime()
+        }
+        await fetchApi('todos',newTask,'POST');
+        getTodos();
+    } catch (err) {
+      console.log(err)
     }
+  }
 
-    const deleteTask = (index) =>{
-      state.splice(index, 1);
-      setState([...state])
+  //*Actualizar TODO
+ const updateTask = async (task) => {
+  try {
+      await fetchApi(`todos/${task.id}`,task,'PUT');
+      getTodos();
+  } catch (err) {
+    console.log(err)
+  }
+ }
+
+ //*Elimnar TODO
+    const deleteTask = async (id) =>{
+      try {
+        await fetchApi(`todos/${id}`,{},'DELETE');
+        getTodos();
+    } catch (err) {
+      console.log(err)
+    }
     }
 
   return (
@@ -63,11 +81,15 @@ function App() {
       <BrowserRouter> 
       <Routes>
         <Route path="/" element={
-          <Todo state={state} doneTask={doneTask} deleteTask={deleteTask}/>
+          <Todo state={state} deleteTask={deleteTask}/>
         }/>
          <Route path="/form" element={
           <Form addTask={addTask}/>
         }/>
+        <Route path="/:id" element={
+        <UpdateTodo state={state} updateTask={updateTask}/>}/>
+        <Route path="/todo/:id" element={
+        <ViewTodo/>}/>
       </Routes>
       </BrowserRouter>
 
