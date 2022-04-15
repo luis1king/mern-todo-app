@@ -51,8 +51,9 @@ function App() {
 
   //*Actualizar TODO
  const updateTask = async (task) => {
+   console.log(task)
   try {
-      await fetchApi(`todos/${task.id}`,task,'PUT');
+      await fetchApi(`todos/${task._id}`,task,'PUT');
       getTodos();
   } catch (err) {
     console.log(err)

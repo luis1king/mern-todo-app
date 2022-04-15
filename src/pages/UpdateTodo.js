@@ -10,26 +10,19 @@ export const UpdateTodo = ({updateTask}) => {
   const navigate= useNavigate();
   const location = useLocation();
   const id = location.pathname.slice(1);
-  const [inputValue, setinputValue] = useState({
-    id: id,
-    title:'',
-    tags:'',
-    description:'',
-    done:false
-  });
-
+  
   useEffect(() => {
     getSingleTodo(id)
-      }
-      , [])
-
-    const getSingleTodo = async (id) => {
-      try {
-        const resp = await fetchApi(`todos/${id}`,{},'GET');
-        //*Recibimos la resouesta de la BBDD
-        const body = await resp.json();
-        //return;
-        //*Desestructuramos el body, extraemos los todos
+  }
+  , [])
+  
+  const getSingleTodo = async (id) => {
+    try {
+      const resp = await fetchApi(`todos/${id}`,{},'GET');
+      //*Recibimos la resouesta de la BBDD
+      const body = await resp.json();
+      //return;
+      //*Desestructuramos el body, extraemos los todos
         const {todos} = body;
         console.log(body.todos)
         //*Estamos recibiendo todos como un array de objetos
@@ -38,7 +31,15 @@ export const UpdateTodo = ({updateTask}) => {
         console.log(err)
       }
     }
-  
+    
+    const [inputValue, setinputValue] = useState({
+      id: id,
+      title:'',
+      tags:'',
+      description:'',
+      done:false
+    });
+
   //desestructuramos
   const {title, tags, description, done} = inputValue;
   
@@ -48,6 +49,7 @@ export const UpdateTodo = ({updateTask}) => {
   
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(inputValue);
     updateTask(inputValue);
     setinputValue({
       title:'',
